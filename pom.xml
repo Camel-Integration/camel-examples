@@ -19,11 +19,13 @@
 
     <modules>
         <module>camel-cxf-examples</module>
+        <module>util</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <camel.version>4.3.0</camel.version>
+        <spring-boot.version>3.2.1</spring-boot.version>
     </properties>
 
     <developers>

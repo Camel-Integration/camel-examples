@@ -1,0 +1,31 @@
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.dataaccess.com/webservicesserver/"
+        elementFormDefault="qualified">
+    <element name="NumberToWords">
+        <complexType>
+            <sequence>
+                <element name="ubiNum" type="unsignedLong"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="NumberToWordsResponse">
+        <complexType>
+            <sequence>
+                <element name="NumberToWordsResult" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="NumberToDollars">
+        <complexType>
+            <sequence>
+                <element name="dNum" type="decimal"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="NumberToDollarsResponse">
+        <complexType>
+            <sequence>
+                <element name="NumberToDollarsResult" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
