@@ -26,7 +26,7 @@ Feel free to use the code as you wish with no restrictions.
       - [ ] orchestrator
       - [ ] module-1
       - [ ] module-2
-    - util
-      - [ ] local-services
+    - [util](util/README.md)
+      - [x] number-converter-service (convert number to word)
 
 
