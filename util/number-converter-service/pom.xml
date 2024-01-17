@@ -9,11 +9,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.example.local-service</groupId>
-    <artifactId>local-service</artifactId>
+    <groupId>org.example.numberconverter</groupId>
+    <artifactId>number-converter-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>local-service</name>
-    <description>local-service</description>
+    <name>number-converter-service</name>
+    <description>Number Converter Service</description>
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -53,7 +53,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>local-service</module>
+        <module>number-converter-service</module>
     </modules>
 
 

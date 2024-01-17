@@ -93,6 +93,12 @@ Go to the project directory
   cd camel-cxf-examples/spring-mvc-rest
 ```
 
+Build the project
+
+```bash
+  mvn clean install
+```
+
 Start the server
 
 ```bash

@@ -93,6 +93,12 @@ Go to the project directory
   cd camel-cxf-examples/camel-rest-dsl
 ```
 
+Build the project
+
+```bash
+  mvn clean install
+```
+
 Start the server
 
 ```bash

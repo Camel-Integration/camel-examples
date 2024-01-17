@@ -1,4 +1,4 @@
-package org.example.localservice;
+package org.example.numberconverter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
