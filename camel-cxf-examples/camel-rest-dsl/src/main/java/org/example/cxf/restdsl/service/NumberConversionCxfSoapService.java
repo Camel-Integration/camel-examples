@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import javax.xml.namespace.QName;
 
 @Component
-public class NumberService {
+public class NumberConversionCxfSoapService {
     @Bean
     public CxfEndpoint convertNumber() {
         CxfEndpoint cxfEndpoint = new CxfEndpoint();

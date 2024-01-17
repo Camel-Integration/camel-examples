@@ -1,16 +1,16 @@
 # Camel REST DSL
-One way to expose a RESTful API with Apache Camel is to use the REST DSL.<br>
-REST DSL is quite easy to use and it is a good choice for simple RESTful APIs.
+This example uses the Spring MVC REST controller to expose a RESTful API.<br>
+Using the `ProducerTemplate` we can send a message to the Camel route and get the response back.<br>
 
 ## What to expect from this example?
 
-<img alt="img.png" src="docs/Camel_RestDsl.png" style="width:800px;"/>
+<img alt="img.png" src="docs/REST_SpringMVC.png" style="width:800px;"/>
 
-Using camel REST DSL, we will expose two RESTful API endpoints to convert a number to words and dollars.
+Using **Spring MVC**, we will expose two RESTful API endpoints to convert a number to words and dollars.
 The Number Conversion implementation is provided by a public SOAP Web Service.<br>
-To describe it simple, we're **transforming a SOAP Web Service to a RESTful API**.<br>
+We're **transforming a SOAP Web Service to a RESTful API**.<br>
 Instead of creating Java objects to represent the REST API response, we used the generated POJOs from the WSDL file.<br>
-- E.g. `NumberToWordsResponse` and `NumberToDollarsResponse` are generated from the WSDL file and 
+- E.g. `NumberToWordsResponse` and `NumberToDollarsResponse` are generated from the WSDL file and
   used as response objects.
 
 ## API Reference
@@ -18,9 +18,9 @@ Instead of creating Java objects to represent the REST API response, we used the
 ### Convert number to words
 
 ```http
-  POST /api/convert-number-to-words
+  POST /api/number-conversion/convertNumberToWords
 ```
-#### Request Data: 
+#### Request Data:
 
 | Parameter | Type     | Description                  | Required Type   |
 | :-------- | :------- |:-----------------------------|:----------------|
@@ -29,7 +29,7 @@ Instead of creating Java objects to represent the REST API response, we used the
 Example Request:
 `
 {
-  "number": "123"
+"number": "123"
 }
 `
 #### Response Data:
@@ -40,14 +40,14 @@ Example Request:
 Example Response:
 `
 {
-  "numberToWordsResult": "one hundred and twenty three"
+"numberToWordsResult": "one hundred and twenty three"
 }
 `
 
 ### Convert number to dollars
 
 ```http
-  POST /api/convert-number-to-dollars
+  POST /api/number-conversion/convertNumberToDollars
 ```
 #### Request Data:
 
@@ -58,7 +58,7 @@ Example Response:
 Example Request:
 `
 {
-  "number": "123"
+"number": "123"
 }
 `
 #### Response Data:
@@ -69,15 +69,15 @@ Example Request:
 Example Response:
 `
 {
-  "numberToDollarsResult": "one hundred and twenty three dollars"
+"numberToDollarsResult": "one hundred and twenty three dollars"
 }
 `
 
 ### API Documentation
 
-You can find the API documentation in the JSON format at 
+You can find the API documentation in the JSON format at
 [http://localhost:8080/api-docs](http://localhost:8080/api-docs).<br>
-For yaml format, you can use [http://localhost:8080/api-docs.yaml](http://localhost:8080/api-docs.yaml)
+This service has also the Swagger UI enable and that is accessible at [https://localhost:8080/swagger-ui.html](https://localhost:8080/swagger-ui.html)
 
 ## Run Locally
 
@@ -90,7 +90,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd camel-cxf-examples/camel-rest-dsl
+  cd camel-cxf-examples/spring-mvc-rest
 ```
 
 Start the server

@@ -15,6 +15,7 @@
 
     <modules>
         <module>camel-rest-dsl</module>
+        <module>spring-mvc-rest</module>
     </modules>
 
     <dependencies>

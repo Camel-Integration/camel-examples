@@ -1,21 +1,21 @@
-package org.example.cxf.restdsl.routes;
+package org.example.cxf.springrest.routes;
 
 import com.dataaccess.webservicesserver.NumberToDollarsResponse;
 import com.dataaccess.webservicesserver.NumberToWordsResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.rest.RestBindingMode;
-import org.example.cxf.restdsl.model.NumberDto;
-import org.example.cxf.restdsl.util.GetNumberToWordsRequestBuilder;
-import org.example.cxf.restdsl.util.NumberConversionHeaderUtil;
-import org.springframework.http.MediaType;
+import org.example.cxf.springrest.model.NumberDto;
+import org.example.cxf.springrest.util.GetNumberToWordsRequestBuilder;
+import org.example.cxf.springrest.util.NumberConversionHeaderUtil;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 @Component
-public class RestDslRoute extends RouteBuilder {
-
+@Slf4j
+public class SoapIntegrationRoute extends RouteBuilder implements NumberConversionRoutes {
     private static final String NUMBER_TO_WORDS_ROUTE = "direct:number-to-words";
     private static final String NUMBER_TO_WORDS_DOLLARS = "direct:number-to-dollars";
     private static final String NUMBER_SERVICE_URI = "cxf:bean:convertNumber";
@@ -23,32 +23,18 @@ public class RestDslRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        restConfiguration()
-                .host("localhost")
-                .inlineRoutes(true)
-                .bindingMode(RestBindingMode.auto)
-                .dataFormatProperty("prettyPrint", "true")
-                .apiContextPath("/api-docs")
-                .apiProperty("api.title", "Number Conversion - Camel REST DSL and CXF SOAP")
-                .apiProperty("api.version", "1.0")
-                .apiContextRouteId("api-doc-context")
-                .apiVendorExtension(true);
-
-        rest("/api").consumes(MediaType.APPLICATION_JSON_VALUE).produces(MediaType.APPLICATION_JSON_VALUE)
-                    .description("Number Conversion REST service")
-                .post("/convert-number-to-words")
-                    .description("Converts a number to words")
-                    .type(NumberDto.class)
-                    .to(NUMBER_TO_WORDS_ROUTE)
-                .post("/convert-number-to-dollars")
-                    .description("Converts a number to dollars")
-                    .type(NumberDto.class)
-                    .to(NUMBER_TO_WORDS_DOLLARS);
-
+        // Some other way of handling exceptions in the route
+        onException(Exception.class)
+                .handled(true)
+                .process(exchange -> {
+                    String step = exchange.getProperty("step", String.class);
+                    log.error("Exception occurred at step: " + step + " - " + exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class).getMessage());
+                    throw new Exception("Error occurred while "+ step);
+                })
+                .end();
 
         from(NUMBER_TO_WORDS_ROUTE)
-                .routeConfigurationId("number-conversion-rest-config")
-                .to("bean-validator://validateNumberDto")
+                .process(exchange -> exchange.setProperty("step", "processing-input-dto"))
                 .process(exchange -> {
                     NumberDto numberDto = exchange.getIn().getBody(NumberDto.class);
                     BigInteger number = new BigInteger(numberDto.getNumber());
@@ -57,33 +43,40 @@ public class RestDslRoute extends RouteBuilder {
                 .bean(GetNumberToWordsRequestBuilder.class, "getNumberToWords")
                 .marshal().jaxb()   // marshal the request to XML
                 .process(NumberConversionHeaderUtil::setNumberToWordsHeader)    // Set headers for the SOAP request
+                .process(exchange -> exchange.setProperty("step", "calling-soap-service"))
                 .to(NUMBER_SERVICE_URI)    // call the SOAP service
                 .process(exchange -> {
                     NumberToWordsResponse response = exchange.getIn().getBody(NumberToWordsResponse.class);
                     // map to a DTO Response object or set it to the body etc.
                 })
-                .unmarshal().jaxb("com.dataaccess.webservicesserver")
-                .marshal().json()
                 .end();
 
         from(NUMBER_TO_WORDS_DOLLARS)
-                .routeConfigurationId("number-conversion-rest-config")
-                .to("bean-validator://validateNumberDto")
+                .process(exchange -> exchange.setProperty("step", "processing-input-dto"))
                 .process(exchange -> {
                     NumberDto numberDto = exchange.getIn().getBody(NumberDto.class);
                     BigDecimal number = new BigDecimal(numberDto.getNumber());
-                    // set the value of the number in the body
                     exchange.getIn().setBody(number);
                 })
                 .bean(GetNumberToWordsRequestBuilder.class, "getNumberToDollars")
                 .marshal().jaxb() // marshal the request to XML
                 .process(NumberConversionHeaderUtil::setNumberToDollarsHeader)    // Set headers for the SOAP request
+                .process(exchange -> exchange.setProperty("step", "calling-soap-service"))
                 .to(NUMBER_SERVICE_URI)    // call the SOAP service
                 .process(exchange -> {
                     NumberToDollarsResponse response = exchange.getIn().getBody(NumberToDollarsResponse.class);
                 })
-                .unmarshal().jaxb("com.dataaccess.webservicesserver")
-                .marshal().json()
                 .end();
     }
+
+    @Override
+    public String getNumberToWordsRoute() {
+        return NUMBER_TO_WORDS_ROUTE;
+    }
+
+    @Override
+    public String getNumberToDollarsRoute() {
+        return NUMBER_TO_WORDS_DOLLARS;
+    }
 }
+

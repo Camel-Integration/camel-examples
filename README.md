@@ -13,23 +13,20 @@ Feel free to use the code as you wish with no restrictions.
 ## Structure
 
 - camel-examples
-    - camel-cxf-examples
-        - [x] [camel-rest-dsl](camel-cxf-examples/camel-rest-dsl/README.md)
+    - [camel-cxf-examples](camel-cxf-examples/README.md)
+      - [x] camel-rest-dsl (expose rest api with Camel REST DSL) 
+      - [x] spring-mvc-rest (expose rest api with Spring MVC)
     - messaging
-        - [ ] kafka
+      - [ ] kafka
     - patterns-implementation
-        - [ ] wire-tap
-        - [ ] dynamic-routing
-        - [ ] parallel-processing
+      - [ ] wire-tap
+      - [ ] dynamic-routing
+      - [ ] parallel-processing
     - modular
-        - [ ] orchestrator
-        - [ ] module-1
-        - [ ] module-2
+      - [ ] orchestrator
+      - [ ] module-1
+      - [ ] module-2
+    - util
+      - [ ] local-services
 
-
-## FAQ
-
-#### Do I need to stand up a SOAP Web Service to test the Camel CXF examples? 
-No, you don't. These examples use some public SOAP Web Services for testing purposes.<br>
-[Number Conversion](https://www.dataaccess.com/webservicesserver/NumberConversion.wso?WSDL) is used in the examples.
 
