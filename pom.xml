@@ -20,6 +20,7 @@
     <modules>
         <module>camel-cxf-examples</module>
         <module>util</module>
+        <module>modular-example</module>
     </modules>
 
     <properties>
@@ -59,6 +60,62 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jackson</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.springboot</groupId>
+                <artifactId>camel-servlet-starter</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel.springboot</groupId>
+                <artifactId>camel-soap-starter</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <!-- OpenAPI Doc -->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-openapi-java</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-cxf-soap</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-cxf-spring-soap</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+            <!-- Testing -->
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-junit5</artifactId>
+                <version>${camel.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-test-spring-junit5</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

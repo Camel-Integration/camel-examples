@@ -8,22 +8,22 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-cxf-examples</artifactId>
+    <groupId>org.example.modular</groupId>
+    <artifactId>modular-example</artifactId>
     <packaging>pom</packaging>
 
-    <name>camel-cxf-examples</name>
+    <name>modular-example</name>
+    <url>http://maven.apache.org</url>
 
     <modules>
-        <module>camel-rest-dsl</module>
-        <module>spring-mvc-rest</module>
+        <module>number-conversion-module</module>
     </modules>
-
-    <dependencies>
-
-    </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+
+    </dependencies>
 </project>
