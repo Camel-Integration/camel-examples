@@ -22,9 +22,9 @@ Feel free to use the code as you wish with no restrictions.
       - [ ] wire-tap
       - [ ] dynamic-routing
       - [ ] parallel-processing
-    - modular
-      - [ ] orchestrator
-      - [ ] module-1
+    - [modular-example](modular-example/README.md)
+      - [x] orchestrator-app (main application)
+      - [x] number-conversion-module (built as java library)
       - [ ] module-2
     - [util](util/README.md)
       - [x] number-converter-service (convert number to word)

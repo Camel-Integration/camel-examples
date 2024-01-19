@@ -105,9 +105,6 @@ Start the server
   mvn spring-boot:run
 ```
 
-
-
-
 ## More about Camel Exception Handling
 
 You can find more about Exception Handling in the [Exception Clause ](https://arc.net/l/quote/vbvfntgf) chapter.

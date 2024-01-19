@@ -14,9 +14,10 @@ This module is not runnable by itself, just packaged as a library.<br>
 ```bash
 mvn clean install
 ```
+As this is built as a library, it will not be runnable by itself.
 
-### Add as a dependency
-In `pom.xml`:
+### How to use it in other modules or applications
+Add the dependency to your `pom.xml` file.
 ```xml
 <dependencies>    
     <dependency>

@@ -17,6 +17,7 @@
 
     <modules>
         <module>number-conversion-module</module>
+        <module>orchestrator-app</module>
     </modules>
 
     <properties>
