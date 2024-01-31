@@ -9,3 +9,12 @@ spring:
   jackson:
     deserialization:
       fail-on-unknown-properties: true
+
+camel:
+  routes:
+    number-to-words:
+      name: direct:number-to-words
+      id: numberToWordsId
+    number-to-dollars:
+      name: direct:number-to-dollars
+      id: numberToDollarsId
