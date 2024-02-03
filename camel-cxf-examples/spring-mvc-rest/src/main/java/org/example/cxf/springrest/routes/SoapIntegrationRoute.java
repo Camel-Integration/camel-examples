@@ -12,10 +12,6 @@ import org.example.cxf.springrest.util.NumberConversionHeaderUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.function.Consumer;
-
 @Component
 @Slf4j
 public class SoapIntegrationRoute extends RouteBuilder implements NumberConversionRoutes {
@@ -57,17 +53,17 @@ public class SoapIntegrationRoute extends RouteBuilder implements NumberConversi
                 .marshal().jaxb()
                 .process(headerSetter)
                 .process(exchange -> exchange.setProperty("step", "calling-soap-service"))
-                .to(NUMBER_SERVICE_URI)
+                .to(NUMBER_SERVICE_URI).id("soap-call-"+routeId)
                 .process(exchange -> {
                     T response = exchange.getIn().getBody(responseClass);
                 })
                 .end();
     }
 
-    private void processExchange(Exchange exchange) {
+    void processExchange(Exchange exchange) {
         NumberDto numberDto = exchange.getIn().getBody(NumberDto.class);
         var number = numberDto.getNumber();
-        exchange.getIn().setBody(numberDto);
+        exchange.getIn().setBody(number);
     }
 
 

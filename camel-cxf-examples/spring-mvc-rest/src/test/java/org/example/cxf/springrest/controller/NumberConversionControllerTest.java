@@ -39,8 +39,7 @@ class NumberConversionControllerTest {
         NumberToWordsResponse response = new NumberToWordsResponse();
         response.setNumberToWordsResult("one hundred twenty-three");
 
-        NumberDto numberDto = new NumberDto();
-        numberDto.setNumber("123");
+        NumberDto numberDto = NumberDto.builder().number("123").build();
         String json = objectMapper.writeValueAsString(numberDto);
 
 
@@ -63,8 +62,7 @@ class NumberConversionControllerTest {
         NumberToDollarsResponse response = new NumberToDollarsResponse();
         response.setNumberToDollarsResult("one hundred twenty-three dollars");
 
-        NumberDto numberDto = new NumberDto();
-        numberDto.setNumber("123");
+        NumberDto numberDto = NumberDto.builder().number("123").build();
 
         Mockito.when(numberConversionService.getNumberToDollars(numberDto)).thenReturn(response);
 
@@ -101,8 +99,7 @@ class NumberConversionControllerTest {
 
 
     String setupInvalidNumberDto() throws JsonProcessingException {
-        NumberDto numberDto = new NumberDto();
-        numberDto.setNumber("invalid number");
+        NumberDto numberDto = NumberDto.builder().number("invalid number").build();
         String json = objectMapper.writeValueAsString(numberDto);
 
         // Returning null is ok as we're not expecting to reach the service layer
